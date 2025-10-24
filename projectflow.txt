@@ -1,0 +1,128 @@
+1> pip install mlflow
+2> mlflow ui :- run in terminal 
+
+🧭 1. Parameters
+
+Definition:
+Parameters are the inputs or hyperparameters used for your model or experiment.
+
+Examples:
+
+mlflow.log_param("learning_rate", 0.01)
+mlflow.log_param("batch_size", 32)
+mlflow.log_param("num_layers", 3)
+
+
+✅ Useful for comparing different runs or configurations.
+
+📊 2. Metrics
+
+Definition:
+Metrics are numerical performance values that can change during training (e.g., accuracy, loss, precision).
+
+Examples:
+
+mlflow.log_metric("accuracy", 0.95)
+mlflow.log_metric("loss", 0.24)
+mlflow.log_metric("f1_score", 0.91)
+
+
+You can also log metrics over time (like per epoch):
+
+for epoch in range(10):
+    mlflow.log_metric("train_loss", loss, step=epoch)
+
+
+✅ Useful for plotting trends and analyzing model performance visually in the MLflow UI.
+
+📁 3. Artifacts
+
+Definition:
+Artifacts are output files generated during training or evaluation.
+
+Examples:
+
+Model files (.pkl, .pt, .h5)
+
+Plots (confusion matrix, ROC curve)
+
+Feature importance graphs
+
+Data files (e.g., test predictions, datasets)
+
+Any output folder or log file
+
+Example:
+
+mlflow.log_artifact("confusion_matrix.png")
+mlflow.log_artifacts("models/")  # log an entire directory
+
+
+✅ Helps keep all outputs from a run (plots, checkpoints, reports) in one place.
+
+🧠 4. Models
+
+Definition:
+You can log entire models with their metadata, which allows for easy loading, serving, and deployment.
+
+Examples:
+
+mlflow.sklearn.log_model(model, "model")
+mlflow.pytorch.log_model(model, "pytorch-model")
+mlflow.tensorflow.log_model(model, "tf-model")
+
+
+✅ MLflow also supports model registry, versioning, and deployment from these logged models.
+
+🧾 5. Tags
+
+Definition:
+Tags are metadata key–value pairs for organizing and searching experiments.
+
+Examples:
+
+mlflow.set_tag("author", "Ravan")
+mlflow.set_tag("purpose", "baseline model")
+mlflow.set_tag("dataset_version", "v2.1")
+
+
+✅ Very handy for filtering runs in the MLflow UI.
+
+🧩 6. Source Information (Automatically Logged)
+
+MLflow can automatically log:
+
+Script name and Git commit hash (if in a repo)
+
+Environment details (Python version, libraries)
+
+Start and end time of each run
+
+✅ Helps you reproduce results later.
+
+⚙️ 7. Automatic Logging (Autologging)
+
+For many frameworks, MLflow can log parameters, metrics, models, and artifacts automatically:
+
+mlflow.sklearn.autolog()
+mlflow.pytorch.autolog()
+mlflow.tensorflow.autolog()
+
+
+✅ Saves time and ensures consistency across runs.
+
+🧰 Summary Table
+Category	                 Description	                          Example
+
+Parameters	                Inputs/hyperparameters       	          mlflow.log_param("lr", 0.001)
+Metrics	                    Numerical results                         mlflow.log_metric("accuracy", 0.93)
+Artifacts	                Files and directories	                  mlflow.log_artifact("plot.png")
+Models	                    Trained models	                          mlflow.sklearn.log_model(model, "model")
+Tags	                    Custom metadata	                          mlflow.set_tag("stage", "testing")
+Autologging	                Auto-logs params, metrics, models	      mlflow.sklearn.autolog()
+
+
+
+
+# when you are getting error while creating the server.First run the default using this command.
+"mlflow server --host 127.0.0.1 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts" in the terminal
